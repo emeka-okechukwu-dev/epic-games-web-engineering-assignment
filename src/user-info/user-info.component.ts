@@ -2,6 +2,13 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { delay, Observable, of, throwError } from 'rxjs';
 
+interface User {
+  id: number;
+  first_name: string;
+  last_name: string;
+  state: 'verified' | 'unverified';
+}
+
 @Component({
   selector: 'app-user-info',
   templateUrl: './user-info.component.html',
@@ -10,17 +17,17 @@ import { delay, Observable, of, throwError } from 'rxjs';
   standalone: true,
 })
 export class UserInfoComponent implements OnInit {
-  _id: any;
-  user: any;
+  private _id: number = 0;
+  user: User = { id: 0, first_name: '', last_name: '', state: 'unverified' };
   loading: boolean = false;
 
   @Input()
-  set id(value: any) {
+  set id(value: number) {
     this._id = value;
 
     this.loadUser();
   }
-  get id(): any {
+  get id(): number {
     return this._id;
   }
 
@@ -31,18 +38,18 @@ export class UserInfoComponent implements OnInit {
   public loadUser() {
     this.loading = true;
 
-    getUser$(this._id).subscribe((user) => {
+    this.getUser$(this._id).subscribe((user: User) => {
       this.user = user;
       this.loading = false;
     });
   }
-}
 
-function getUser$(id: any): Observable<any> {
-  const state = Math.random() > 0.5 ? 'verified' : 'unverified';
-  const userSuccess = { id, first_name: 'John', last_name: 'Smith', state };
-  if (Math.random() > 0.5) {
-    return of(userSuccess).pipe(delay(2500));
+  getUser$(id: number): Observable<User> {
+    const state = Math.random() > 0.5 ? 'verified' : 'unverified';
+    const userSuccess: User = { id, first_name: 'John', last_name: 'Smith', state };
+    if (Math.random() > 0.5) {
+      return of(userSuccess).pipe(delay(2500));
+    }
+    return throwError(() => new Error(`User with id ${id} not found`));
   }
-  return throwError(() => new Error(`User with id ${id} not found`));
 }
