@@ -1,29 +1,28 @@
 <style>
-  .green {
-    color:green;
-  }
+    .green {
+        color: green;
+    }
 
-  .red {
-    color:red;
-  }
+    .red {
+        color: red;
+    }
 </style>
-
 <div class="wrapper-user">
-  <p>user-info:</p>
-  <p>
-    <span *ngIf="loading"> loading... </span>
-    <span> id: {{ user.id }} | {{ user.first_name }} {{ user.last_name }} </span>
-    <span
-      [ngClass]="{
-        green: user.state === 'verified',
-        red: user.state === 'unverified'
-      }"
-      style="color:blue"
-    >
-      {{ user.state }}
-    </span>
-  </p>
-  <p>
-    <button (click)="loadUser()" >Reload user</button>
-  </p>
+    <p>user-info:</p>
+    <p>
+        <span *ngIf="loading"> loading... </span>
+        <span *ngIf="!loading && !userNotFound">
+            id: {{ user.id }} | {{ user.first_name }} {{ user.last_name }}
+        </span>
+        <span *ngIf="!loading && !userNotFound"
+                [ngClass]="{ green: user.state === 'verified', red: user.state === 'unverified' }"
+                style="color:blue"
+        >
+			{{ user.state }}
+		</span>
+        <span *ngIf="userNotFound && !loading"> User not found </span>
+    </p>
+    <p>
+        <button (click)="loadUser()">Reload user</button>
+    </p>
 </div>

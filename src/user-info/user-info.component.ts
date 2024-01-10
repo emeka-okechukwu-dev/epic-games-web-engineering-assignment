@@ -20,6 +20,7 @@ export class UserInfoComponent implements OnInit {
   private _id: number = 0;
   user: User = { id: 0, first_name: '', last_name: '', state: 'unverified' };
   loading: boolean = false;
+  userNotFound: boolean = false;
 
   @Input()
   set id(value: number) {
@@ -37,6 +38,7 @@ export class UserInfoComponent implements OnInit {
 
   public loadUser() {
     this.loading = true;
+    this.userNotFound = false;
 
     this.getUser$(this._id).subscribe((user: User) => {
       this.user = user;
@@ -47,9 +49,13 @@ export class UserInfoComponent implements OnInit {
   getUser$(id: number): Observable<User> {
     const state = Math.random() > 0.5 ? 'verified' : 'unverified';
     const userSuccess: User = { id, first_name: 'John', last_name: 'Smith', state };
+
     if (Math.random() > 0.5) {
       return of(userSuccess).pipe(delay(2500));
     }
+
+    this.loading = false;
+    this.userNotFound = true;
     return throwError(() => new Error(`User with id ${id} not found`));
   }
 }
