@@ -1,5 +1,5 @@
+import { ChangeDetectionStrategy, ChangeDetectorRef,Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
 import { delay, Observable, of, throwError } from 'rxjs';
 
 interface User {
@@ -14,6 +14,7 @@ interface User {
   templateUrl: './user-info.component.html',
   styleUrls: ['./user-info.component.css'],
   imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
 })
 export class UserInfoComponent implements OnInit {
@@ -32,6 +33,8 @@ export class UserInfoComponent implements OnInit {
     return this._id;
   }
 
+  constructor(private cdr: ChangeDetectorRef) {}
+
   ngOnInit(): void {
     this.loadUser();
   }
@@ -43,6 +46,7 @@ export class UserInfoComponent implements OnInit {
     this.getUser$(this._id).subscribe((user: User) => {
       this.user = user;
       this.loading = false;
+      this.cdr.detectChanges();
     });
   }
 
