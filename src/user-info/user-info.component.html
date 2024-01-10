@@ -1,0 +1,29 @@
+<style>
+  .green {
+    color:green;
+  }
+
+  .red {
+    color:red;
+  }
+</style>
+
+<div class="wrapper-user">
+  <p>user-info:</p>
+  <p>
+    <span *ngIf="loading"> loading... </span>
+    <span> id: {{ user.id }} | {{ user.first_name }} {{ user.last_name }} </span>
+    <span
+      [ngClass]="{
+        green: user.state === 'verified',
+        red: user.state === 'unverified'
+      }"
+      style="color:blue"
+    >
+      {{ user.state }}
+    </span>
+  </p>
+  <p>
+    <button>Reload user</button>
+  </p>
+</div>
