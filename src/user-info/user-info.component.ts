@@ -4,28 +4,28 @@ import {
     Component,
     Input,
     OnInit,
-} from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { delay, Observable, of, throwError } from "rxjs";
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { delay, Observable, of, throwError } from 'rxjs';
 
 interface User {
     id: number;
     first_name: string;
     last_name: string;
-    state: "verified" | "unverified";
+    state: 'verified' | 'unverified';
 }
 
 @Component({
-    selector: "app-user-info",
-    templateUrl: "./user-info.component.html",
-    styleUrls: ["./user-info.component.css"],
+    selector: 'app-user-info',
+    templateUrl: './user-info.component.html',
+    styleUrls: ['./user-info.component.css'],
     imports: [CommonModule],
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
 })
 export class UserInfoComponent implements OnInit {
     private _id: number = 0;
-    user: User = { id: 0, first_name: "", last_name: "", state: "unverified" };
+    user: User = { id: 0, first_name: '', last_name: '', state: 'unverified' };
     loading: boolean = false;
     userNotFound: boolean = false;
 
@@ -58,11 +58,11 @@ export class UserInfoComponent implements OnInit {
     }
 
     getUser$(id: number): Observable<User> {
-        const state = Math.random() > 0.5 ? "verified" : "unverified";
+        const state = Math.random() > 0.5 ? 'verified' : 'unverified';
         const userSuccess: User = {
             id,
-            first_name: "John",
-            last_name: "Smith",
+            first_name: 'John',
+            last_name: 'Smith',
             state,
         };
 

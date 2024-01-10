@@ -17,7 +17,7 @@
         <span *ngIf="!loading && !userNotFound"
               [ngClass]="{ green: user.state === 'verified', red: user.state === 'unverified' }"
         >
-			{{ user.state }}
+            {{ user.state }}
 		</span>
         <span *ngIf="userNotFound && !loading"> User not found </span>
     </p>
