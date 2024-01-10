@@ -13,10 +13,9 @@
         <span *ngIf="loading"> loading... </span>
         <span *ngIf="!loading && !userNotFound">
             id: {{ user.id }} | {{ user.first_name }} {{ user.last_name }}
-        </span>
+		</span>
         <span *ngIf="!loading && !userNotFound"
-                [ngClass]="{ green: user.state === 'verified', red: user.state === 'unverified' }"
-                style="color:blue"
+              [ngClass]="{ green: user.state === 'verified', red: user.state === 'unverified' }"
         >
 			{{ user.state }}
 		</span>
