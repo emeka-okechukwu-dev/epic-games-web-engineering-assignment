@@ -9,7 +9,7 @@ import { delay, Observable, of, throwError } from 'rxjs';
   imports: [CommonModule],
   standalone: true,
 })
-export class UserInfoComponent {
+export class UserInfoComponent implements OnInit {
   _id: any;
   user: any;
   loading: boolean = false;
@@ -22,6 +22,10 @@ export class UserInfoComponent {
   }
   get id(): any {
     return this._id;
+  }
+
+  ngOnInit(): void {
+    this.loadUser();
   }
 
   public loadUser() {
